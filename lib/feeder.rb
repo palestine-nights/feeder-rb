@@ -2,7 +2,7 @@
 
 require 'pry'
 
-require_relative 'auth'
+require_relative 'authenticator'
 
 class Feeder
     ROOT_PATH = "./data"
@@ -11,15 +11,33 @@ class Feeder
         @authenticator = Authenticator::Auth.new(username, password)
     end
 
-    def items
-        files.map { JSON.parse(file.yield_self { |file| File.read(file) }) }
+    def start
+        all_items.each do |item|
+            response = Net::HTTP.post(url, item.to_json, headers)
+            binding.pry
+            puts "Status: #{response.code}"
+        end
     end
 
-    def start
-        # TODO: Send POST request with Bearer header for each item.
+    def all_items
+        menu_items.flatten
     end
 
     private
+
+    def menu_items
+        files.map { |file| JSON.parse(file.yield_self { |file| File.read(file) }) }
+    end
+
+    def url
+        ENV.fetch('API_URL', 'https://api.palestinenights.com')
+        .yield_self { |url| "#{url}/menu" }
+        .yield_self { |it| URI(it) }
+    end
+
+    def headers
+        { "Authorization" => "Bearer #{@authenticator.token}" }
+    end
 
     def files
         Dir.glob("#{ROOT_PATH}/**/*.json")

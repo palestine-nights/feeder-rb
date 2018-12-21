@@ -14,7 +14,7 @@ class OptParser
 			opts.banner = "Usage: ./feeder [options]"
 
 			opts.on("-u", "--username USERNAME", "Administrator username") do |username|
-				options.username  username
+				options.username = username
 			end
 
 			opts.on("-p", "--password PASSWORD", "Administrator password") do |password|
@@ -41,8 +41,6 @@ class OptParser
 end
 
 options = OptParser.parse(ARGV)
-
-pp options
 
 feeder = Feeder.new(options.username, options.password)
 
