@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
-# require 'pry'
 
 require_relative '../lib/feeder.rb'
 
 feeder = Feeder.new()
+
 feeder.start

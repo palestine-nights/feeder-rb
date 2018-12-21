@@ -9,13 +9,13 @@ Created to translate JSON files into special HTTP requests to https://api.palest
 Authenticate using admin credentials.
 
 ```sh
-$> ./bin/feeder auth # Authenticate
+$> ./bin/feeder auth --username=<username> --password=<password>
 ```
 
 Feed data.
 
 ```sh
-$> ./bin/feeder # Feed the database
+$> ./bin/feeder
 ```
 
 # License
