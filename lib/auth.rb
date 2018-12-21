@@ -12,7 +12,8 @@ module Authenticator
         end
 
         def authenticate!
-            # req = Net::HTTP::Get.new(uri)
+            binding.pry
+            req = Net::HTTP::Get.new(url)
             # req.set_form_data(params)
 
             # http = Net::HTTP.new(uri.host, uri.port)
@@ -32,13 +33,8 @@ module Authenticator
             { username: @username, page: @password }
         end
 
-        def uri
-
-            URI(str_uri)
-        end
-
-        def str_uri
-            ENV.fetch('AUTH_URL', 'https://auth.palestinenights.com')
+        def url
+            URI(ENV.fetch('AUTH_URL', 'https://auth.palestinenights.com'))
         end
     end
 end

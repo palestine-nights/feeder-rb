@@ -7,21 +7,19 @@ require_relative 'auth'
 class Feeder
     ROOT_PATH = "./data"
 
-    def initialize
-        @authenticator = Authenticator::Auth.new('', '')
+    def items
+        files.map { JSON.parse(file.yield_self { |file| File.read(file) }) }
+    end
+
+    def initialize(username, password)
+        @authenticator = Authenticator::Auth.new(username, password)
     end
 
     def start
-        menu_items.each
+        # TODO: Send POST request with Bearer header for each item.
     end
 
     private
-
-    def menu_items
-        files.map do |file|
-            JSON.parse(file.yield_self { |file| File.read(file) })
-        end
-    end
 
     def files
         Dir.glob("#{ROOT_PATH}/**/*.json")

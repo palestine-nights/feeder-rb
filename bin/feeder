@@ -1,7 +1,34 @@
 #!/usr/bin/env ruby
 
+require 'optparse'
+
 require_relative '../lib/feeder.rb'
 
-feeder = Feeder.new()
+class OptParser
+	def self.parse(args)
+		options = OpenStruct.new
+
+		opts = OptionParser.new do |opts|
+			opts.banner = "Usage: ./feeder [options]"
+
+			opts.on("-u", "--username USERNAME", "Administrator username") do |username|
+				options.username = username
+			end
+
+			opts.on("-p", "--password PASSWORD", "Administrator password") do |password|
+				options.password = password
+			end
+		end
+
+		opts.parse!(args)
+		options
+	end
+end
+
+options = OptParser.parse(ARGV)
+
+pp options
+
+feeder = Feeder.new(options.username, options.password)
 
 feeder.start
