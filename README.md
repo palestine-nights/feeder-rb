@@ -1,21 +1,13 @@
 # Feeder
 
-:bar_chart: Tiny ruby script for real data feeding
-
-Created to translate JSON files into special HTTP requests to https://api.palestinenights.com
+:bar_chart: Tiny tool for data feeding
 
 # Usage
 
-Authenticate using admin credentials.
+Feed data
 
 ```sh
-$> ./bin/feeder auth --username=<username> --password=<password>
-```
-
-Feed data.
-
-```sh
-$> ./bin/feeder
+$> ./bin/feeder --username USERNAME --password PASSWORD
 ```
 
 # License

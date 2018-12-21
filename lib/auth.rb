@@ -5,14 +5,11 @@ module Authenticator
         def initialize(username, password)
             @username = username
             @password = password
-
-            # binding.pry
-
-            @token = authenticate!
         end
 
         def authenticate!
             binding.pry
+
             req = Net::HTTP::Get.new(url)
             # req.set_form_data(params)
 
@@ -20,11 +17,7 @@ module Authenticator
             # request = Net::HTTP::Get.new('/auth')
             # request.set_form_data(params)
 
-            # binding.pry
-
             # response = http.request(request)
-
-            # binding.pry
         end
 
         private

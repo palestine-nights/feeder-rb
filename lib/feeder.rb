@@ -7,12 +7,12 @@ require_relative 'auth'
 class Feeder
     ROOT_PATH = "./data"
 
-    def items
-        files.map { JSON.parse(file.yield_self { |file| File.read(file) }) }
-    end
-
     def initialize(username, password)
         @authenticator = Authenticator::Auth.new(username, password)
+    end
+
+    def items
+        files.map { JSON.parse(file.yield_self { |file| File.read(file) }) }
     end
 
     def start
